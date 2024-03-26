@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes prediction</title>
+    <link rel="stylesheet" href="style2.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('form.mera_form').submit(function(e) {
+                e.preventDefault();
+                var formData = $(this).serialize();
+                $.post('http://127.0.0.1:5000/predict', formData, function(data) {
+                    $('.response').html(`<p>Prediction: ${data.prediction_text}</p>`);
+                }, 'json');
+            });
+        });
+        
+$(document).ready(function() {
+    $('.btn').click(function(e) {
+        $('form.mera_form').submit();
+    });
+});
+        </script> 
+    
+</head>
+
+<body>
+    <div class="main">
+        <section class="apple">
+            <div class="test">
+                <form class="mera_form" action="{{ url_for('predict')}}" method="POST">
+                    <br>
+                    <h1>Diabetes</h1>
+                    <br>
+                    <input class="hero" type="text" name="Pregnancies"
+                        title="Pregnancies" placeholder="Pregnancies" ,
+                        required="required" /><br>
+                    <input class="hero" type="text"
+                        name="Glucose"
+                        title="Glucose"
+                        placeholder="Glucose" ,
+                        required="required" /><br>
+                    <input class="hero" type="text" name="BloodPressure"
+                        title="BloodPressure"
+                        placeholder="BloodPressure" , required="required" /><br>
+                    <input class="hero" type="text"
+                        name="SkinThickness"
+                        title="SkinThickness"
+                        placeholder="SkinThickness" ,
+                        required="required" /><br>
+                    <input class="hero" type="text" name="nsulin"
+                        title="nsulin" placeholder="nsulin" ,
+                        required="required" /><br>
+                    <input class="hero" type="text" name="BMI"
+                        title="BMI" placeholder="BMI" ,
+                        required="required" /><br>
+                    <input class="hero" type="text" name="DiabetesPedigreeFunction"
+                        title="DiabetesPedigreeFunction"
+                        placeholder="DiabetesPedigreeFunction" ,
+                        required="required" /><br>
+                    <input class="hero" type="text" name="Age"
+                        title="Age"
+                        placeholder="Age" , required="required" /><br><br>
+
+                    <button type="submit" class="btn">Predict</button>
+                    <br>
+                    <br>
+                    <div class="response">
+                        <p> Pridiction:  {{prediction_text}} </p>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <br>
+        <br>
+    </div>
+</body>
+
+</html>
